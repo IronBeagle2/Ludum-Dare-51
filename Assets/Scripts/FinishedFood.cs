@@ -19,7 +19,6 @@ public class FinishedFood : MonoBehaviour
             grab.itemText.text = "";
 
             Destroy(collision.gameObject);
-            Debug.Log("deleted!!!!");
             Grab.isHolding = false;
             Grab.itemHolding.transform.parent = null;
             Grab.itemHolding = null;
@@ -29,7 +28,6 @@ public class FinishedFood : MonoBehaviour
         }
         else
         {
-            //Debug.Log("TRIGGERED!!!! " + collision);
             if (collision.gameObject.tag == "Item")
             {
                 grab = GameObject.FindGameObjectWithTag("Grab").GetComponent<Grab>();
@@ -38,7 +36,6 @@ public class FinishedFood : MonoBehaviour
                 plate = plateObj.GetComponent<Plate>();
 
                 Destroy(collision.gameObject);
-                Debug.Log("deleted!!!!");
                 Grab.isHolding = false;
                 Grab.itemHolding.transform.parent = null;
                 Grab.itemHolding = null;

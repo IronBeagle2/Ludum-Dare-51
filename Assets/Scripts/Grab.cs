@@ -57,7 +57,6 @@ public class Grab : MonoBehaviour
 
     public void holdItem()
     {
-        //Debug.Log("hold item called");
         isHolding = true;
         itemHolding = itemColliding;
         if (itemHoldingMode == "food")
@@ -67,7 +66,6 @@ public class Grab : MonoBehaviour
         else if (itemHoldingMode == "plate")
         {
             Plate plate = itemHolding.GetComponent<Plate>();
-            Debug.Log(plate.ingredients.Count);
             if(plate.ingredients.Count == 0)
             {
                 itemText.text += $"Plate (empty)";
@@ -87,11 +85,9 @@ public class Grab : MonoBehaviour
 
     public void dropItem()
     {
-        Debug.Log("drop item called");
         itemText.text = "";
         itemHolding.transform.parent = null;
         itemHolding = null;
         isHolding = false;
-        /*holdCollider.enabled = true;*/
     }
 }

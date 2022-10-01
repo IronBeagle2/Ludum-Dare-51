@@ -8,11 +8,9 @@ public class RubbishBin : MonoBehaviour
     public Grab grab;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("TRIGGERED!!!! " + collision);
         if (collision.gameObject.tag == "Item" || collision.gameObject.tag == "Food")
         {
             Destroy(collision.gameObject);
-            Debug.Log("deleted!!!!");
             Grab.isHolding = false;
             Grab.itemHolding.transform.parent = null;
             Grab.itemHolding = null;
