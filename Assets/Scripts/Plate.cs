@@ -9,14 +9,14 @@ public class Plate : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Food")
+        grab = GameObject.FindGameObjectWithTag("Grab").GetComponent<Grab>();
+        if (collision.gameObject.tag == "Food" && grab.holdsPlate == false)
         {
             ingredients.Add(collision.gameObject.name);
             Destroy(collision.gameObject);
             Grab.isHolding = false;
             Grab.itemHolding.transform.parent = null;
             Grab.itemHolding = null;
-            grab = GameObject.FindGameObjectWithTag("Grab").GetComponent<Grab>();
             grab.itemText.text = "";
         }
     }

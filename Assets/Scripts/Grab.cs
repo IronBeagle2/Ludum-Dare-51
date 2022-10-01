@@ -13,6 +13,7 @@ public class Grab : MonoBehaviour
     Collider2D itemColliding;
 
     public TMP_Text itemText;
+    public bool holdsPlate = false;
 
     void Update()
     {
@@ -62,9 +63,11 @@ public class Grab : MonoBehaviour
         if (itemHoldingMode == "food")
         {
             itemText.text = itemHolding.name;
+            holdsPlate = false;
         }
         else if (itemHoldingMode == "plate")
         {
+            holdsPlate = true;
             Plate plate = itemHolding.GetComponent<Plate>();
             if(plate.ingredients.Count == 0)
             {
@@ -89,5 +92,6 @@ public class Grab : MonoBehaviour
         itemHolding.transform.parent = null;
         itemHolding = null;
         isHolding = false;
+        holdsPlate = false;
     }
 }

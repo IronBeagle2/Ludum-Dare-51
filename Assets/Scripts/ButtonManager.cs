@@ -9,4 +9,16 @@ public class ButtonManager : MonoBehaviour
     {
         SceneManager.LoadScene("MainGame");
     }
+    public void ToMenu()
+    {
+        SceneManager.LoadScene("MenuMain");
+    }
+    public void Tutorial()
+    {
+        SceneManager.LoadScene("Tutorial");
+    }
+    public void About()
+    {
+        SceneManager.LoadScene("AboutGame");
+    }
 }
