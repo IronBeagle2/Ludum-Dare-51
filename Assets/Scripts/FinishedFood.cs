@@ -9,6 +9,8 @@ public class FinishedFood : MonoBehaviour
     public Transform plateObj;
     public Plate plate;
     bool isFirstTime = true;
+    public SpriteRenderer sr;
+    bool canPickFood = true;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -28,7 +30,7 @@ public class FinishedFood : MonoBehaviour
         }
         else
         {
-            if (collision.gameObject.tag == "Item")
+            if (collision.gameObject.tag == "Item" && canPickFood == true)
             {
                 grab = GameObject.FindGameObjectWithTag("Grab").GetComponent<Grab>();
                 grab.itemText.text = "";
@@ -40,6 +42,7 @@ public class FinishedFood : MonoBehaviour
                 Grab.itemHolding.transform.parent = null;
                 Grab.itemHolding = null;
                 checkIfCorrect(plate.ingredients);
+                disableEnable("disable");
             }
         }
     }
@@ -47,5 +50,33 @@ public class FinishedFood : MonoBehaviour
     public void checkIfCorrect(List<string> list)
     {
         GameLoop.checkIfDelievered(list);
+    }
+
+    public void disableEnable(string mode)
+    {
+        Color col;
+        if(mode == "disable")
+        {
+            Debug.Log("FINISH FOOD DISABLE");
+            if (ColorUtility.TryParseHtmlString("#44003E", out col))
+            {
+                sr.color = col;
+            }
+            canPickFood = false;
+        }
+        else if (mode == "enable")
+        {
+            Debug.Log("FINISH FOOD ENABLE");
+            if (ColorUtility.TryParseHtmlString("#FF00E9", out col))
+            {
+                sr.color = col;
+            }
+            canPickFood = true;
+        }
+    }
+
+    public void EnableObject()
+    {
+
     }
 }

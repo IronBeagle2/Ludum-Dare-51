@@ -25,9 +25,14 @@ public class GameLoop : MonoBehaviour
     int second = 0;
     public static bool wasIncorrect;
     public static bool didDeliver = false;
+    public GameObject finishFoodObj;
+
+    public AudioClip[] audios;
+    AudioSource audio;
 
     public void StartGameLoop()
     {
+        audio = GetComponent<AudioSource>();
         StartCoroutine(TheLoop());
     }
 
@@ -39,6 +44,8 @@ public class GameLoop : MonoBehaviour
             checkIfCorrect(finalOrder.Count);
             //generate new order
             ingredientsTxt.text = "";
+            FinishedFood ff = finishFoodObj.GetComponent<FinishedFood>();
+            ff.disableEnable("enable");
 
             //difficulty increase
             if (ordersDone <= 4)
@@ -63,6 +70,10 @@ public class GameLoop : MonoBehaviour
             }
             second = 10;
             didDeliver = false;
+        }
+        else
+        {
+            playAudio("tick");
         }
         yield return new WaitForSeconds(1);
         second--;
@@ -164,6 +175,7 @@ public class GameLoop : MonoBehaviour
             lives--;
             livesTxt.text = "Lives: " + lives;
 
+
             //if 3 strikes game over "You're FIRED!!!!!!!!!"
             if(lives < 0)
             {
@@ -174,9 +186,14 @@ public class GameLoop : MonoBehaviour
                     Grab.itemHolding.transform.parent = null;
                     Grab.itemHolding = null;
                 }
-
+                PlayYoureFired.score = score;
+                PlayYoureFired.delivered = ordersDone;
                 SceneManager.LoadScene("GameOver");
                 ordersDone = 0;
+            }
+            else
+            {
+                playAudio("incorrectorder");
             }
         }
         else
@@ -186,6 +203,7 @@ public class GameLoop : MonoBehaviour
             score += addScore;
             scoreTxt.text = "Score: " + score;
             ordersDone++;
+            playAudio("correctorder");
         }
         wasIncorrect = false;
     }
@@ -197,7 +215,7 @@ public class GameLoop : MonoBehaviour
         didDeliver = true;
         //Debug.Log("DELIEVERED FOOD AND CALLED GAMELOOP!!!!");
         //Debug.Log("ListToCheck: " + listToCheck.Count);
-        if (listToCheck.Count == 0)
+        if (listToCheck.Count == 0 || listToCheck.Count > finalOrder.Count)
         {
             wasIncorrect = true;
         }
@@ -220,6 +238,17 @@ public class GameLoop : MonoBehaviour
                         i = 99;
                     }
                 }
+            }
+        }
+    }
+
+    public void playAudio(string name)
+    {
+        foreach (AudioClip clip in audios)
+        {
+            if(clip.name == name)
+            {
+                audio.PlayOneShot(clip);
             }
         }
     }

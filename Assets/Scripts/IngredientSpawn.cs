@@ -14,6 +14,9 @@ public class IngredientSpawn : MonoBehaviour
         {
             GameObject obj = Instantiate(spawnGameObject, spawnerTransform.position, Quaternion.identity);
             obj.name = spawnGameObject.name;
+
+            GameObject obj2 = Instantiate(spawnGameObject, spawnerTransform.position, Quaternion.identity);
+            obj2.name = spawnGameObject.name;
             isFull = true;
         }
     }
@@ -23,6 +26,13 @@ public class IngredientSpawn : MonoBehaviour
         if (collision.name == spawnGameObject.name)
         {
             isFull = false;
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.name == spawnGameObject.name)
+        {
+            isFull = true;
         }
     }
 }
