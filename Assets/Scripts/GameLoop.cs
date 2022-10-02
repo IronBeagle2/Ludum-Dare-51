@@ -63,10 +63,20 @@ public class GameLoop : MonoBehaviour
                 Debug.Log("diff 3");
                 generateOrder(2, 4);
             }
-            else if (ordersDone > 14)
+            else if (ordersDone > 14 && ordersDone <= 19)
             {
                 Debug.Log("diff 4");
                 generateOrder(3, 4);
+            }
+            else if (ordersDone > 19 && ordersDone <= 24)
+            {
+                Debug.Log("diff 4");
+                generateOrder(3, 5);
+            }
+            else if (ordersDone > 24)
+            {
+                Debug.Log("diff 4");
+                generateOrder(4, 5);
             }
             second = 10;
             didDeliver = false;
